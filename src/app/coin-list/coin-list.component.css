@@ -1,0 +1,14 @@
+.header{
+    height: 40%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    color: orangered;
+}
+
+.banner{
+    background-image: url('../../assets/bitcoin-to-the-moon-banner.jpg');
+    height: 400px;
+    width: 100%;
+}
