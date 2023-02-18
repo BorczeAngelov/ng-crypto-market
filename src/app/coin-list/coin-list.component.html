@@ -4,14 +4,29 @@
             <h2 style="font-weight: bold; margin-bottom:15px; font-size: 2.75rem; line-height: 1.2;">
                 Crypto Market (API CoinGecko.com)
             </h2>
-            <h6 style="color: darkorange; text-transform: capitalize; font-size: 1.8rem; font-weight: 500; line-height: 1.57;">
+            <h6
+                style="color: darkorange; text-transform: capitalize; font-size: 1.8rem; font-weight: 500; line-height: 1.57;">
                 Crypto currency real time price
             </h6>
         </div>
         <div class="sub-header">
             <marquee behavior="scroll" onmouseover="stop()" onmouseout="start()" loop="infinite" direction="left">
                 <div class="row">
-                    A
+                    <ng-container *ngFor="let row of bannerData">
+                        <div class="col-1">
+                            <div class="card">
+                                <img [src]="row.image" width="100" class="img-fluid" alt=""
+                                    style="width: 70px; margin: 0 auto">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight: 500;">
+                                        {{row.symbol | uppercase}}
+                                        <span class="text-danger">{{row.market_cap_change_percentage_24h}}%</span>
+                                        <p class="card-text" style="font-weight: 700;">{{row.current_price | currency: "USD"}}</p>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </marquee>
         </div>
