@@ -2,7 +2,7 @@
   <span>(Ng Demo) Crypto Market</span>
   <span class="example-spacer"></span>
   <mat-form-field>
-    <mat-select class="text-sm" [(ngModel)]="selectedCurrency" (valueChange)="sendCurrency($event)">
+    <mat-select class="text-sm" [(ngModel)]="selectedCurrency" (valueChange)="selectCurrency($event)">
       <mat-option value="USD">USD</mat-option>
       <mat-option value="CHF">CHF</mat-option>
       <mat-option selected value="EUR">EUR</mat-option>

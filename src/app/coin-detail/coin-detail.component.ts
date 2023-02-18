@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts'
+import { SelectedCurrencyService } from '../service/selected-currency.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class CoinDetailComponent implements OnInit {
   coinData: any;
   coinId!: string;
   days: number = 30;
-  currency: string = "USD";
+  currency: string = "EUR";
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -49,7 +50,7 @@ export class CoinDetailComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   @ViewChild(BaseChartDirective) myLineChart !: BaseChartDirective;
 
-  constructor(private api: ApiService, private activatedRoute: ActivatedRoute) { }
+  constructor(private api: ApiService, private activatedRoute: ActivatedRoute, private selectedCurrencyService: SelectedCurrencyService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(value => {
@@ -58,19 +59,41 @@ export class CoinDetailComponent implements OnInit {
 
     this.getCoinData();
     this.getGraphData();
+
+    this.selectedCurrencyService.getSelectedCurrency()
+      .subscribe(value => {
+        this.currency = value;
+        this.getCoinData();
+        this.getGraphData();
+      });
   }
 
 
   getCoinData() {
     this.api.getCoinById(this.coinId)
       .subscribe(response => {
-        this.coinData = response;
         console.log(this.coinData);
+        console.log(this.currency);
+
+        if (this.currency === "USD") {
+          response.market_data.current_price.eur = response.market_data.current_price.usd;
+          response.market_data.market_cap.eur = response.market_data.market_cap.usd;
+        }
+        else if (this.currency === "CHF") {
+          response.market_data.current_price.eur = response.market_data.current_price.chf;
+          response.market_data.market_cap.eur = response.market_data.market_cap.chf;
+        }
+        else {
+          // if (this.currency === "EUR") // default
+          response.market_data.current_price.eur = response.market_data.current_price.eur;
+          response.market_data.market_cap.eur = response.market_data.market_cap.eur;
+        }        
+        this.coinData = response;
       })
   }
 
   getGraphData() {
-    this.api.getGrpahicalCurrencyData(this.coinId, "USD", this.days)
+    this.api.getGrpahicalCurrencyData(this.coinId, this.currency, this.days)
       .subscribe(response => {
         console.log(response);
 

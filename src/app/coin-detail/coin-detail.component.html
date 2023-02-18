@@ -14,15 +14,15 @@
                     <span class="title" style="font-size: 30px;font-weight: 600;">Rank: </span> <span
                         class="value">{{coinData?.market_cap_rank}}</span><br>
                     <span class="value" style="font-size: 30px;font-weight: 500;">Current Price: </span> <span
-                        class="value">{{coinData?.market_data.current_price.usd | currency}}</span><br>
-                    <span class="title">Market Cap: </span> <span class="value">{{coinData?.market_data.market_cap.usd |
-                        currency}}</span><br>
+                        class="value">{{coinData?.market_data.current_price.eur |  currency:currency}}</span><br>
+                    <span class="title">Market Cap: </span> <span class="value">
+                        {{coinData?.market_data.market_cap.eur | currency:currency}}</span><br>
 
                 </div>
 
             </div>
         </div>
-        
+
         <div class="col-md-8">
             <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType"
                 style="width: 300px;"></canvas>
