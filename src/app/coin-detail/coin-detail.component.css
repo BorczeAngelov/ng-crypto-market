@@ -1,0 +1,41 @@
+.details {
+    width: 30%;
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+    border-right: 2px solid black;
+    flex-direction: column;
+}
+
+.img {
+    background: transparent;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.more-detail {
+    padding: 10px;
+    margin: 10px;
+    line-height: 50px;
+}
+
+.btn-custom {
+    color: black;
+    background: transparent;
+    font-weight: 400;
+    font-size: 18px;
+    border: 1px solid black;
+    width: 23%;
+}
+
+.btn-custom:focus {
+    background: black;
+    font-weight: 700;
+    font-size: 18px;
+    border: 1px solid black;
+}
+/* 
+* {
+    color: #fff;
+} */
