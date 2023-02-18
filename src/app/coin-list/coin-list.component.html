@@ -21,7 +21,8 @@
                                     <h5 class="card-title" style="font-weight: 500;">
                                         {{row.symbol | uppercase}}
                                         <span class="text-danger">{{row.market_cap_change_percentage_24h}}%</span>
-                                        <p class="card-text" style="font-weight: 700;">{{row.current_price | currency: "USD"}}</p>
+                                        <p class="card-text" style="font-weight: 700;">{{row.current_price | currency:
+                                            "USD"}}</p>
                                     </h5>
                                 </div>
                             </div>
@@ -34,5 +35,51 @@
 </div>
 
 <div class="container mt-3">
-    <!-- Table should be here -->
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="market_cap_rank">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td mat-cell *matCellDef="let row"> {{row.market_cap_rank}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin </th>
+                <td mat-cell *matCellDef="let row">
+                    <img [src]="row.image" width="50" alt="">
+                    <span class="mx-2"> {{row.symbol | uppercase}} </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="current_price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let row"> {{row.current_price | currency:'USD'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price_change_percentage_24h">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 24h Change </th>
+                <td mat-cell *matCellDef="let row"> {{row.price_change_percentage_24h}}% </td>
+            </ng-container>
+
+            <ng-container matColumnDef="market_cap">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Market Cap </th>
+                <td mat-cell *matCellDef="let row"> {{row.market_cap | currency:'USD'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page"></mat-paginator>
+    </div>
 </div>
