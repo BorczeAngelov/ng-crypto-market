@@ -14,7 +14,7 @@
                     <span class="title" style="font-size: 30px;font-weight: 600;">Rank: </span> <span
                         class="value">{{coinData?.market_cap_rank}}</span><br>
                     <span class="value" style="font-size: 30px;font-weight: 500;">Current Price: </span> <span
-                        class="value">{{coinData?.market_data.current_price.eur |  currency:currency}}</span><br>
+                        class="value">{{coinData?.market_data.current_price.eur | currency:currency}}</span><br>
                     <span class="title">Market Cap: </span> <span class="value">
                         {{coinData?.market_data.market_cap.eur | currency:currency}}</span><br>
 
@@ -26,6 +26,13 @@
         <div class="col-md-8">
             <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType"
                 style="width: 300px;"></canvas>
+
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-custom" (click)="getGraphData(1)">1 day</button>
+                <button class="btn btn-custom" (click)="getGraphData(30)">30 days</button>
+                <button class="btn btn-custom" (click)="getGraphData(90)">90 days</button>
+                <button class="btn btn-custom" (click)="getGraphData(365)">1 year</button>
+            </div>
         </div>
     </div>
 </div>

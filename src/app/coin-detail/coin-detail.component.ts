@@ -58,13 +58,13 @@ export class CoinDetailComponent implements OnInit {
     })
 
     this.getCoinData();
-    this.getGraphData();
+    this.getGraphData(this.days);
 
     this.selectedCurrencyService.getSelectedCurrency()
       .subscribe(value => {
         this.currency = value;
         this.getCoinData();
-        this.getGraphData();
+        this.getGraphData(this.days);
       });
   }
 
@@ -87,12 +87,14 @@ export class CoinDetailComponent implements OnInit {
           // if (this.currency === "EUR") // default
           response.market_data.current_price.eur = response.market_data.current_price.eur;
           response.market_data.market_cap.eur = response.market_data.market_cap.eur;
-        }        
+        }
         this.coinData = response;
       })
   }
 
-  getGraphData() {
+  getGraphData(days: number) {
+    this.days = days;
+
     this.api.getGrpahicalCurrencyData(this.coinId, this.currency, this.days)
       .subscribe(response => {
         console.log(response);
